@@ -1,0 +1,89 @@
+.illuminated { outline: none }
+.illuminated:hover { box-shadow: 0 0 30px 5px #F41C52 }
+
+#mainTable { margin: 80px auto }
+#mainTable thead * { margin-top: 3% }
+#mainTable tfoot * { margin-bottom: 4% !important }
+
+hr {
+    color: #F41C52;
+    width: 95%;
+}
+
+#canvas {
+    width: 300px;
+    height: 300px;
+    background-color: white;
+    border: 2px solid #F41C52;
+    border-radius: 20px;
+    box-shadow: inset 0 0 7px 1px gray;
+}
+
+#mainTable > tbody > tr > td.first {
+    text-align: right;
+    min-width: 100px;
+}
+
+#mainTable > tbody > tr > td.second {
+    text-align: left;
+    padding-left: 15px;
+}
+
+select { width: 30% }
+
+input, select {
+    border: 2px solid #F41C52;
+    border-radius: 4px;
+    background-color: white;
+}
+
+input[type=text] { width: 90% }
+
+input[type=button], input[type=radio], input[type=checkbox] { cursor: pointer }
+
+td.second table { width: 100% }
+td.second td.first {
+    padding: 0;
+    text-align: left;
+    width: 15px;
+}
+td.second td.second {
+    padding: 0;
+    text-align: center;
+    width: 20px;
+}
+
+input[type=radio] {
+    -webkit-appearance: none;
+    width: 13px;
+    height: 13px;
+    border-radius: 20px;
+}
+input[type=radio]:checked, input[type=checkbox]:checked {
+    box-shadow: 0 0 40px 5px #F41C52;
+    transform: scale(1.05);
+    background-color: #FFB0E0;
+}
+
+
+#outputTable {
+    border: 1px solid #000720;
+    border-collapse: collapse;
+    margin: auto;
+    width: 90%;
+}
+
+#outputTable * {
+    padding: 25px;
+}
+
+#outputTable th {
+    background-color: #000720;
+    color: white;
+}
+
+.notification {
+    color: white;
+    padding: 1%;
+    background-color: #000720;
+}

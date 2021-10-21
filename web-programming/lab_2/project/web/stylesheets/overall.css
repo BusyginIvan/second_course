@@ -1,0 +1,47 @@
+* {
+    font-family: "sans-serif", Arial, fantasy;
+    text-align: center;
+    font-weight: normal;
+}
+
+body { background-color: whitesmoke }
+
+header {
+    font-size: 0.6em;
+    top: 0;
+}
+
+header, footer {
+    z-index: 10;
+    width: 100%;
+    position: fixed;
+    color: white;
+    background-color: #000720;
+    left: 0;
+}
+
+footer { bottom: 0 }
+
+figure img {
+    width: 47px;
+    height: 55px;
+}
+
+figcaption { font-size: 0.8em }
+
+.list {
+    background-color: ghostwhite;
+    border-spacing: 10px;
+    width: 75%;
+}
+
+.shaded { box-shadow: 0 0 10px 1px black }
+.shaded:hover {
+    box-shadow: 0 0 20px 2px black;
+    transition: 0.5s;
+}
+
+.animated:hover {
+    transform: scale(1.05);
+    transition: 0.5s;
+}

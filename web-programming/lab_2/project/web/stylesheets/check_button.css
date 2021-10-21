@@ -1,0 +1,44 @@
+#checkButton:focus { outline: none }
+
+#checkButton {
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+
+    background-color: #EB2A5A;
+    color: white;
+    box-shadow: 0 5px 15px #193047;
+    transition-duration: 0.4s;
+
+    width: 150px;
+    height: 50px;
+    border-radius: 4px;
+    border: none;
+
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+#checkButton:hover {
+    background: white;
+    color: black;
+    box-shadow: 0 2px 10px 5px #EB2A5A;
+}
+
+#checkButton > div {
+    background: #EB2A5A;
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 200%; height: 200%;
+    opacity: 0;
+    transition: 1s
+}
+
+#checkButton:active > div {
+    width: 0; height: 0;
+    opacity: 1;
+    transition: 0s
+}
