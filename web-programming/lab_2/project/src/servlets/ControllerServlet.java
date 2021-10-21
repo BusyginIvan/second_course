@@ -7,10 +7,15 @@ import javax.servlet.http.*;
 public class ControllerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String header = request.getHeader("X-Requested-With");
-        if (header != null && header.equals("XMLHttpRequest"))
-            getServletContext().getNamedDispatcher("AreaChecker").forward(request, response);
-        else
+        String ajaxHeader = request.getHeader("X-Requested-With");
+        if (ajaxHeader != null && ajaxHeader.equals("XMLHttpRequest")) {
+            if (request.getParameter("x") != null &&
+                    request.getParameter("y") != null &&
+                    request.getParameter("r") != null)
+                getServletContext().getNamedDispatcher("AreaChecker").forward(request, response);
+            else
+                getServletContext().getRequestDispatcher("/results.jsp").forward(request, response);
+        } else
             getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
     }
 

@@ -83,7 +83,7 @@
         </tbody>
 
         <tfoot><tr><td colspan="3" id="outputContainer">
-            <jsp:include page = "/checker" />
+            <jsp:include page = "/results.jsp" />
         </td></tr></tfoot>
     </table>
 

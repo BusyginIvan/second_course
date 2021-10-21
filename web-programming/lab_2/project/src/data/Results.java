@@ -2,20 +2,17 @@ package data;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
+import java.util.List;
 
 public class Results implements Serializable {
-    private final ArrayList<Point> list = new ArrayList<>();
+    private List<Point> pointList = new ArrayList<>();
     public Results() { }
 
-    public void addPoint(Point point) { list.add(point); }
+    public List<Point> getPointList() { return pointList; }
 
-    public boolean isEmpty() { return list.isEmpty(); }
+    public void setPointList(List<Point> pointList) { this.pointList = pointList; }
 
-    public String toHTML() {
-        return "<table id='outputTable'>" +
-                "<tr> <th>x</th> <th>y</th> <th>r</th> <th>Точка входит в ОДЗ</th> </tr>\n" +
-                list.stream().map(Point::toHTML).collect(Collectors.joining("\n")) +
-                "</table>";
-    }
+    public void addPoint(Point point) { pointList.add(point); }
+
+    public boolean isEmpty() { return pointList.isEmpty(); }
 }
