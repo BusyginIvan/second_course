@@ -23,6 +23,4 @@ public class Point implements Serializable {
     public double getY() { return y; }
     public double getR() { return r; }
     public boolean isResult() { return result; }
-
-    public String format(double a) { return String.format("%.3f", a); }
 }
