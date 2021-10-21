@@ -13,7 +13,7 @@
                 <td>${point.format(point.x)}</td>
                 <td>${point.format(point.y)}</td>
                 <td>${point.format(point.r)}</td>
-                <td>${point.result}</td>
+                <td style='color: ${point.result ? "green" : "red"}'>${point.result ? "да" : "нет"}</td>
             </tr>
         </c:forEach></tbody>
     </table>
