@@ -3,21 +3,17 @@
 let x = 1, y = 0, r = 2;
 
 function initForm() {
-    $('#textY').on('input', function() { $(this).css('color', 'black') });
-
-    $('input[name=checkboxR]').change(function() {
-        if ($(this).is(':checked')) {
-            $('input[name=checkboxR]').prop('checked', false);
-            $(this).prop('checked', true);
-        }
-    });
+    $('#textY').on('input', function () { $(this).css('color', 'black') });
 
     $('#checkButton').click(() => {
-        r = $('input[name=checkboxR]:checked').val();
         x = $('input[name=radioX]:checked').val();
         y = $('#textY').val().replace(',', '.');
 
-        if (validateY()) newPoint();
+        if (validateY())
+            $('input[name=checkboxR]:checked').each(function () {
+                r = $(this).val();
+                newPoint();
+            });
     });
 
     $('#canvas').mousedown(function (event) {
