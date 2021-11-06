@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>ЛР №2</title>
-    <link href="stylesheets/overall.css" rel="stylesheet">
+    <link href="stylesheets/all_pages.css" rel="stylesheet">
     <link href="stylesheets/main_page.css" rel="stylesheet">
     <link href="stylesheets/check_button.css" rel="stylesheet">
 </head>

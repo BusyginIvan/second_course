@@ -1,4 +1,4 @@
-package servlets;
+package my_java.controller;
 
 import javax.servlet.ServletException;
 import java.io.IOException;
@@ -16,7 +16,7 @@ public class ControllerServlet extends HttpServlet {
             else
                 getServletContext().getRequestDispatcher("/results.jsp").forward(request, response);
         } else
-            getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+            getServletContext().getRequestDispatcher("/main.jsp").forward(request, response);
     }
 
     @Override

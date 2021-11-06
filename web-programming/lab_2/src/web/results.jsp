@@ -2,7 +2,7 @@
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 
-<jsp:useBean id="results" class="data.Results" scope="session"/>
+<jsp:useBean id="results" class="my_java.model.Results" scope="session"/>
 
 <% if (results.isEmpty()) { %>
     <h4><span class="notification">Результаты отсутствуют</span></h4>

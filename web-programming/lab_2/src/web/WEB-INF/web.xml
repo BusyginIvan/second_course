@@ -6,15 +6,15 @@
 
     <servlet>
         <servlet-name>Controller</servlet-name>
-        <servlet-class>servlets.ControllerServlet</servlet-class>
+        <servlet-class>my_java.controller.ControllerServlet</servlet-class>
     </servlet><servlet-mapping>
         <servlet-name>Controller</servlet-name>
-        <url-pattern>/server</url-pattern>
+        <url-pattern>/server/*</url-pattern>
     </servlet-mapping>
 
     <servlet>
         <servlet-name>AreaChecker</servlet-name>
-        <servlet-class>servlets.AreaCheckServlet</servlet-class>
+        <servlet-class>my_java.controller.AreaCheckServlet</servlet-class>
     </servlet><servlet-mapping>
             <servlet-name>AreaChecker</servlet-name>
             <url-pattern>/checker</url-pattern>
@@ -24,4 +24,8 @@
         <error-code>404</error-code>
         <location>/error_page.html</location>
     </error-page>
+
+    <welcome-file-list>
+        <welcome-file>/main.jsp</welcome-file>
+    </welcome-file-list>
 </web-app>
