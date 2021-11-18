@@ -11,8 +11,10 @@ public class ControllerServlet extends HttpServlet {
         if (ajaxHeader != null && ajaxHeader.equals("XMLHttpRequest")) {
             if (request.getParameter("x") != null &&
                     request.getParameter("y") != null &&
-                    request.getParameter("r") != null)
+                    request.getParameter("r") != null) {
+                request.setAttribute("forward", true);
                 getServletContext().getNamedDispatcher("AreaChecker").forward(request, response);
+            }
             else
                 getServletContext().getRequestDispatcher("/results.jsp").forward(request, response);
         } else

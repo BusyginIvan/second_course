@@ -1,56 +1,49 @@
 "use strict";
 
-let x = 1, y = 0, r = 2;
-
 function initForm() {
     $('#textY').on('input', function () { $(this).css('color', 'black') });
 
     $('#checkButton').click(() => {
-        x = $('input[name=radioX]:checked').val();
-        y = $('#textY').val().replace(',', '.');
-
-        if (validateY())
-            $('input[name=checkboxR]:checked').each(function () {
-                r = $(this).val();
-                newPoint();
-            });
+        let x = $('input[name=radioX]:checked').val();
+        let y = parseY($('#textY').val().replace(',', '.'));
+        if (!isNaN(y)) for_each_r((a) => a, x, y);
     });
 
     $('#canvas').mousedown(function (event) {
-        r = $('input[name=checkboxR]:checked').val();
-        x = normalize(event.pageX - $(this).offset().left - 2);
-        y = -normalize(event.pageY - $(this).offset().top - 2);
+        let x = normalize(event.pageX - $(this).offset().left);
+        let y = -normalize(event.pageY - $(this).offset().top);
+        for_each_r((a, r) => a * r, x, y);
+    });
+}
 
-        newPoint();
+function for_each_r(action, x, y) {
+    $('input[name=checkboxR]:checked').each(function () {
+        let r = $(this).val();
+        newPoint(action(x, r), action(y, r), r);
     });
 }
 
 function normalize(x) {
-    return (x - indent - semiaxisLength) / R * r;
+    return (x - 2 - indent - semiaxisLength) / R;
 }
 
-function newPoint() {
-    setPointer(x, y, r);
+function newPoint(x, y, r) {
+    drawPointer(x, y, r);
     $.get({
         url: 'server',
-        data: 'x=' + encodeURIComponent(x) +
-              '&y=' + encodeURIComponent(y) +
-              '&r=' + encodeURIComponent(r),
+        data: 'x=' + x +
+              '&y=' + y +
+              '&r=' + r,
         dataType: 'html',
-        headers: { 'X-Requested-With': 'XMLHttpRequest',
-                   'Accept-Charset': 'UTF-8'   },
+        headers: { 'X-Requested-With': 'XMLHttpRequest' },
         success: data => $('#outputContainer').html(data)
     });
-    /*err => alert(err.status + " – ошибка HTTP.\n" + err.message)*/
 }
 
-function validateY() {
-    if (y === undefined || !isNumeric(y) || (y < -5) || (y > 5)) {
+function parseY(y) {
+    if (y === undefined || isNaN(y) || (y < -5) || (y > 5)) {
         $("#textY").css('color', 'red');
-        return false;
-    } return true;
-}
-
-function isNumeric(n) {
-    return !isNaN(parseFloat(n)) && isFinite(n);
+        return NaN;
+    }
+    return parseFloat(y);
 }

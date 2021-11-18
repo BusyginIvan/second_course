@@ -100,9 +100,7 @@ function drawRect(x, y, w, h) {
     ctx.strokeRect(x, y, w, h);
 }
 
-function setPointer(x, y, r) {
-    //ctx.clearRect(0, 0, canvas.width, canvas.height);
-    //ctx.drawImage(canvas.offscreenCanvas, 0, 0);
+function drawPointer(x, y, r) {
     ctx.beginPath();
     ctx.arc(indent + semiaxisLength + x / r * R, indent + semiaxisLength - y / r * R, 4, 0, Math.PI * 2);
     ctx.stroke(); ctx.fill();
