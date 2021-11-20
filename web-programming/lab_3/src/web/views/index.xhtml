@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<ui:composition template="template.xhtml">
+    <ui:define name="head">
+        <title>Приветствие</title>
+        <h:outputStylesheet library="stylesheets" name="simple_pages.css"/>
+        <h:outputStylesheet library="stylesheets" name="index.css"/>
+    </ui:define>
+    <ui:define name="content">
+        <div id="base"><div class="shaded list">
+            <h3>
+                Вы находитесь на сайте, который позволит без труда определить попадание
+                какой-либо точки в область.<br/>
+                <h:link outcome="goMain">Приступить к работе.</h:link>
+            </h3>
+            <div><span id="date"/> <span id="time"/></div>
+        </div></div>
+        <h:outputScript library="scripts" name="datetime.js"/>
+    </ui:define>
+</ui:composition>
+</html>
