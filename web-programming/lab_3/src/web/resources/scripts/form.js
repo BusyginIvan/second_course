@@ -1,29 +1,27 @@
 jQuery.noConflict();
+let currentR;
 
 jQuery(document).ready(function($) {
     $('.textX').val(0);
-    $('.ui-spinner-input').val(currentR);
+    setR();
 
-    function validateText(element, min, max) {
-        let x = textToNum(element);
-        if (x > max) element.val(max);
-        else if (x < min) element.val(min);
-    }
-
-    function initListeners(element, action) {
-        element.on('focusout', action);
-        element.bind('keydown', function(event) {
-            if (event.which === 13) action();
+    function initListeners(element, min, max, action) {
+        if (action === undefined) action = () => {};
+        function validateText() {
+            let x = textToNum(element);
+            if (x > max) element.val(max);
+            else if (x < min) element.val(min);
+        }
+        element.on('focusout', () => { validateText(); action() });
+        element.bind('keydown', (event) => {
+            if (event.which === 13) { validateText(); action() }
         });
     }
 
-    initListeners($('.ui-spinner-input'), () => { validateText($('.ui-spinner-input'), 1, 3); setR() });
-
+    initListeners($('.textX'), -5, 5);
+    initListeners($('.textY'), -5, 5);
+    initListeners($('.ui-spinner-input'), 1, 3, setR);
     $('.spinnerR > .ui-spinner-button').on('click', setR);
-
-    initListeners($('.textX'), () => validateText($('.textX'), -5, 5));
-
-    /*$('.button').on('click', redraw);*/
 
     $('#canvas').mousedown(function (event) {
         let norm = k => Math.round((k - 2 - arrowsLength - indent) / scale * divisionsNumber * 1000) / 1000;

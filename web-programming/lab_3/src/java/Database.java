@@ -6,8 +6,6 @@ import java.util.function.Consumer;
 public class Database implements IDatabase {
     private Connection connection;
 
-    public Database() {}
-
     public Database(String path) throws Exception {
 
     }

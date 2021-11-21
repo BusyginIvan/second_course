@@ -39,7 +39,10 @@
             <tr><td class="first">Введите Y:</td>
                 <td class="second">
                     <p:inputText styleClass="textY animated" value="#{results.newPoint.y}"
-                                 maxlength="8" a:placeholder="Число от -5 до 5..."/>
+                                 maxlength="8" a:placeholder="Число от -5 до 5...">
+                        <f:validateRequired/>
+                        <f:validateDoubleRange minimum="-5" maximum="5"/>
+                    </p:inputText>
             </td></tr>
 
             <tr><td class="first">Введите R:</td>

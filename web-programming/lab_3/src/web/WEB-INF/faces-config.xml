@@ -33,7 +33,7 @@
     <managed-bean>
         <managed-bean-name>results</managed-bean-name>
         <managed-bean-class>Results</managed-bean-class>
-        <managed-bean-scope>application</managed-bean-scope>
+        <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
 
 </faces-config>

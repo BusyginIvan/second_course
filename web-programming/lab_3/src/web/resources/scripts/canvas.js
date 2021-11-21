@@ -1,4 +1,3 @@
-let currentR = 3;
 const divisionsNumber = 5;
 const arrowsLength = 140, indent = 10, scale = arrowsLength - 20;
 
@@ -6,10 +5,9 @@ const canvas = document.getElementById('canvas');
 canvas.setAttribute('width', 2 * (arrowsLength + indent) + "px");
 canvas.setAttribute('height', 2 * (arrowsLength + indent) + "px");
 
-let ctx = canvas.getContext('2d');
+const ctx = canvas.getContext('2d');
 ctx.translate(indent + arrowsLength, indent + arrowsLength);
 ctx.lineWidth = 2;
-redraw();
 
 function redraw() {
     clear();
@@ -99,7 +97,7 @@ function drawRect(x, y, w, h) {
 }
 
 function drawPoint(x, y, r, result) {
-    if (Number(r) !== currentR) return;
+    if (Number(r) !== Number(currentR)) return;
 
     if (result === "да") {
         ctx.strokeStyle = 'DarkGreen';
