@@ -1,7 +1,7 @@
 import java.io.Serializable;
 
 public class Point implements Serializable {
-    private Float x, y, r;
+    private Float x, y, r = 3f;
     private String result;
 
     public Float getX() { return x; }

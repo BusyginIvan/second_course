@@ -3,7 +3,10 @@ let currentR;
 
 jQuery(document).ready(function($) {
     $('.textX').val(0);
+    $('.ui-spinner-input').val(3);
+    console.log('ready 1: ' + currentR);
     setR();
+    console.log('ready 2: ' + currentR);
 
     function initListeners(element, min, max, action) {
         if (action === undefined) action = () => {};

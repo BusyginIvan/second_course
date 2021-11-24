@@ -54,10 +54,10 @@
             <tr><td colspan="2">
                 <h:commandButton styleClass="submit button" value="Добавить точку"
                                  action="#{results.addPoint()}">
-                    <f:ajax render="resultsTable" execute="form" onevent="redraw"/>
+                    <f:ajax render="resultsTable" execute="form" onevent="onevent"/>
                 </h:commandButton>
                 <h:commandButton styleClass="button" value="Очистить" action="#{results.clear()}">
-                    <f:ajax render="resultsTable" execute="form" onevent="redraw"/>
+                    <f:ajax render="resultsTable" execute="form" onevent="onevent"/>
                 </h:commandButton>
             </td></tr>
             </h:form>

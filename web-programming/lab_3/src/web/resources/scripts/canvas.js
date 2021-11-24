@@ -9,6 +9,8 @@ const ctx = canvas.getContext('2d');
 ctx.translate(indent + arrowsLength, indent + arrowsLength);
 ctx.lineWidth = 2;
 
+function onevent(data) { if (data.status === 'success') redraw() }
+
 function redraw() {
     clear();
     drawArea();

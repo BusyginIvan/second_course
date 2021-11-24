@@ -14,7 +14,7 @@ public class Results implements Serializable {
     public Results() throws Exception {
         lock = new ReentrantLock();
         points = new ArrayList<>();
-        newPoint = new Point(); newPoint.setR(3f);
+        newPoint = new Point();
         database = new Database("database");
         database.loadPoints(points::add);
     }
