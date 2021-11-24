@@ -2,7 +2,9 @@ import java.io.Serializable;
 
 public class Point implements Serializable {
     private Float x, y, r = 3f;
-    private String result;
+
+    public Point() { }
+    public Point(Float x, Float y, Float r) { this.x = x; this.y = y; this.r = r; }
 
     public Float getX() { return x; }
     public Float getY() { return y; }
@@ -12,9 +14,9 @@ public class Point implements Serializable {
     public void setY(Float y) { this.y = Math.round(y * 1000) / 1000.f; }
     public void setR(Float r) { this.r = Math.round(r * 1000) / 1000.f; }
 
-    public String getResult() { return result; }
-    public void initResult() {
-        if (valid()) result = result() ? "да" : "нет";
+    public String getResult() {
+        if (valid()) return result() ? "да" : "нет";
+        return "не определёно";
     }
 
     public boolean valid() {

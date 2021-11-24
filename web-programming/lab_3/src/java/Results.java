@@ -6,27 +6,24 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class Results implements Serializable {
     private final List<Point> points;
-    private IDatabase database;
+    private final Database database;
     private final Lock lock;
     private Point newPoint;
-    /*private String message = "";*/
 
     public Results() throws Exception {
         lock = new ReentrantLock();
         points = new ArrayList<>();
         newPoint = new Point();
-        database = new Database("database");
+        database = new Database();
         database.loadPoints(points::add);
     }
 
     public List<Point> getPoints() { return points; }
     public Point getNewPoint() { return newPoint; }
-    /*public String getMessage() { return message; }*/
 
     public void addPoint() {
         lock.lock();
         if (newPoint.valid()) {
-            newPoint.initResult();
             points.add(newPoint);
             database.addPoint(newPoint);
             newPoint = new Point();
