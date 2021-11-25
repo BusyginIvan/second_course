@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="2.5"
+<web-app version="3.1"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemalocation=" http://java.sun.com/xml/ns/javaee
-         http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+         xsi:schemalocation="http://xmlns.jcp.org/xml/ns/javaee
+    http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
 
-    <!--<context-param>
-        <param-name>javax.faces.application.CONFIG_FILES</param-name>
+    <context-param>
+        <param-name>javax.faces.CONFIG_FILES</param-name>
         <param-value>/WEB-INF/navigation-config.xml, /WEB-INF/beans-config.xml</param-value>
-    </context-param>-->
+    </context-param>
 
     <error-page>
         <error-code>404</error-code>

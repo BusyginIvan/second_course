@@ -20,7 +20,7 @@ public class Database {
         SELECT_POINTS = connection.prepareStatement("select x, y, r from points");
         CLEAR_POINTS = connection.prepareStatement("delete from points");
 
-        Runtime.getRuntime().addShutdownHook(new Thread(this::destroy));
+        logger.log(Level.INFO, "Установлено соединение с БД.");
     }
 
     public void addPoint(Point point) {
