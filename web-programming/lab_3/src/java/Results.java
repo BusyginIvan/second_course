@@ -14,7 +14,7 @@ public class Results implements Serializable {
         lock = new ReentrantLock();
         points = new ArrayList<>();
         newPoint = new Point();
-        database = new Database();
+        database = DatabaseBuilder.newDatabase("data_");
         database.loadPoints(points::add);
     }
 

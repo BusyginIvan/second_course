@@ -10,18 +10,7 @@ public class Database {
     private final PreparedStatement SELECT_POINTS;
     private final PreparedStatement CLEAR_POINTS;
 
-    public Database() throws Exception {
-        String error = "Ошибка при подключении к БД! ";
-        String prefix = "data_";
-
-        String url = System.getenv(prefix + "URL");
-        String login = System.getenv(prefix + "login");
-        String password = System.getenv(prefix + "password");
-
-        if (url == null) throw new Exception(error + "В переменных среды не задан URL.");
-        if (login == null) throw new Exception(error + "В переменных среды не задан логин.");
-        if (password == null) throw new Exception(error + "В переменных среды не задан пароль.");
-
+    public Database(String url, String login, String password) throws Exception {
         connection = DriverManager.getConnection(url, login, password);
 
         INSERT_POINT = connection.prepareStatement("insert into points (x, y, r) values (?, ?, ?)");
@@ -46,12 +35,14 @@ public class Database {
     public void loadPoints(Consumer<Point> points) {
         try {
             ResultSet resultSet = SELECT_POINTS.executeQuery();
-            while (resultSet.next())
-                points.accept(new Point(
+            while (resultSet.next()) {
+                Point newPoint = new Point(
                         resultSet.getFloat("x"),
                         resultSet.getFloat("y"),
                         resultSet.getFloat("r")
-                ));
+                );
+                if (newPoint.valid()) points.accept(newPoint);
+            }
             resultSet.close();
         } catch (SQLException e) {
             logger.log(Level.WARNING, e.getMessage());
