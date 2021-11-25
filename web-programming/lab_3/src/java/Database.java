@@ -1,10 +1,13 @@
 import java.sql.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Database {
     private static final Logger logger = Logger.getLogger(Database.class.getName());
+    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
     private final Connection connection;
     private final PreparedStatement INSERT_POINT;
     private final PreparedStatement SELECT_POINTS;
@@ -22,14 +25,16 @@ public class Database {
 
     public void addPoint(Point point) {
         if (!point.valid()) return;
-        try {
-            INSERT_POINT.setFloat(1, point.getX());
-            INSERT_POINT.setFloat(2, point.getY());
-            INSERT_POINT.setFloat(3, point.getR());
-            INSERT_POINT.executeUpdate();
-        } catch (SQLException e) {
-            logger.log(Level.WARNING, e.getMessage());
-        }
+        executorService.execute(() -> {
+            try {
+                INSERT_POINT.setFloat(1, point.getX());
+                INSERT_POINT.setFloat(2, point.getY());
+                INSERT_POINT.setFloat(3, point.getR());
+                INSERT_POINT.executeUpdate();
+            } catch (SQLException e) {
+                logger.log(Level.WARNING, e.getMessage());
+            }
+        });
     }
 
     public void loadPoints(Consumer<Point> points) {
@@ -50,14 +55,18 @@ public class Database {
     }
 
     public void clearPoints() {
-        try {
-            CLEAR_POINTS.executeUpdate();
-        } catch (SQLException e) {
-            logger.log(Level.WARNING, e.getMessage());
-        }
+        executorService.execute(() -> {
+            try {
+                CLEAR_POINTS.executeUpdate();
+            } catch (SQLException e) {
+                logger.log(Level.WARNING, e.getMessage());
+            }
+        });
     }
 
-    private void destroy() {
+    public void destroy() {
+        logger.log(Level.INFO, "Закрываем соединение с БД.");
+        executorService.shutdown();
         close(SELECT_POINTS);
         close(INSERT_POINT);
         close(CLEAR_POINTS);

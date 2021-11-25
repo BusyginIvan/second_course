@@ -9,7 +9,7 @@
 
 <ui:composition template="template.xhtml">
     <ui:define name="head">
-        <title>ЛР №2</title>
+        <title>ЛР №3</title>
         <h:outputStylesheet library="stylesheets" name="main.css"/>
         <h:outputStylesheet library="stylesheets" name="buttons.css"/>
     </ui:define>
@@ -54,7 +54,7 @@
                     <f:ajax render="resultsTable" execute="form" onevent="onevent"/>
                 </h:commandButton>
                 <h:commandButton styleClass="button" value="Очистить" action="#{results.clear()}">
-                    <f:ajax render="resultsTable" execute="form" onevent="onevent"/>
+                    <f:ajax render="resultsTable" onevent="onevent"/>
                 </h:commandButton>
             </td></tr>
             </h:form>

@@ -4,9 +4,7 @@ let currentR;
 jQuery(document).ready(function($) {
     $('.textX').val(0);
     $('.ui-spinner-input').val(3);
-    console.log('ready 1: ' + currentR);
     setR();
-    console.log('ready 2: ' + currentR);
 
     function initListeners(element, min, max, action) {
         if (action === undefined) action = () => {};
@@ -25,6 +23,11 @@ jQuery(document).ready(function($) {
     initListeners($('.textY'), -5, 5);
     initListeners($('.ui-spinner-input'), 1, 3, setR);
     $('.spinnerR > .ui-spinner-button').on('click', setR);
+
+    $('.textY').on('input', function() { $(this).css('color', 'black') });
+    $('.textY').on('focusout', function() {
+        if (isNaN(textToNum($(this)))) $(this).css('color', 'red');
+    });
 
     $('#canvas').mousedown(function (event) {
         let norm = k => Math.round((k - 2 - arrowsLength - indent) / scale * divisionsNumber * 1000) / 1000;

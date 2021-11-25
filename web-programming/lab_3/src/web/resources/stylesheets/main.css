@@ -33,6 +33,7 @@ hr {
 .textX, .textY, .ui-spinner-input { height: 30px }
 .textX, .sliderX, .spinnerR { width: 60% } .textY { width: 100% }
 .sliderX { margin-top: 10px }
+.spinnerR > .ui-spinner-button { z-index: auto }
 
 #resultsTable {
     border: 1px solid #000720;
@@ -48,9 +49,7 @@ hr {
     width: 20%;
 }
 
-#resultsTable th:last-child {
-    width: 40%;
-}
+#resultsTable th:last-child { width: 40% }
 
 #resultsTable > tbody > tr > td { padding-top: 15px }
 #resultsTable > tbody > tr:last-child > td { padding-bottom: 15px }

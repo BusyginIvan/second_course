@@ -1,3 +1,4 @@
+import javax.annotation.PreDestroy;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +26,10 @@ public class Results implements Serializable {
         lock.lock();
         if (newPoint.valid()) {
             points.add(newPoint);
-            database.addPoint(newPoint);
             newPoint = new Point();
         }
         lock.unlock();
+        database.addPoint(newPoint);
     }
 
     public void clear() {
@@ -36,5 +37,10 @@ public class Results implements Serializable {
         points.clear();
         database.clearPoints();
         lock.unlock();
+    }
+
+    @PreDestroy
+    public void destroy() {
+        database.destroy();
     }
 }
