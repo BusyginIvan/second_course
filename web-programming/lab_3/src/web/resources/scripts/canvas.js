@@ -117,9 +117,9 @@ function drawPoint(x, y, r, result) {
 }
 
 function drawPoints() {
-    let resultsTable = document.getElementById("resultsTable");
-    if (resultsTable) {
-        let rows = resultsTable.tBodies[0].rows;
+    let pointsTable = document.getElementById("pointsTable");
+    if (pointsTable) {
+        let rows = pointsTable.tBodies[0].rows;
         for (let i = 0; i < rows.length; i++) {
             let columns = rows[i].children;
             drawPoint(

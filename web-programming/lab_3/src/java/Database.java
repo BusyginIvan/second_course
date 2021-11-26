@@ -1,6 +1,8 @@
+import java.io.Serializable;
 import java.sql.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,6 +23,8 @@ public class Database {
         CLEAR_POINTS = connection.prepareStatement("delete from points");
 
         logger.log(Level.INFO, "Установлено соединение с БД.");
+
+        Runtime.getRuntime().addShutdownHook(new Thread(this::destroy));
     }
 
     public void addPoint(Point point) {
@@ -67,6 +71,10 @@ public class Database {
     public void destroy() {
         logger.log(Level.INFO, "Закрываем соединение с БД.");
         executorService.shutdown();
+        while (true)
+            try { if(executorService.awaitTermination(10, TimeUnit.SECONDS)) break; }
+            catch (InterruptedException e) { break; }
+        /*logger.log(Level.INFO, "Все процессы завершены: " + (executorService.isTerminated() ? "да" : "нет"));*/
         close(SELECT_POINTS);
         close(INSERT_POINT);
         close(CLEAR_POINTS);

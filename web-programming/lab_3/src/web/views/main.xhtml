@@ -29,13 +29,13 @@
             <h:form id="form">
             <tr><td class="first">Установите X:</td>
                 <td class="second">
-                    <p:inputText id="textX" styleClass="textX animated" value="#{results.newPoint.x}"/>
+                    <p:inputText id="textX" styleClass="textX animated" value="#{points.newPoint.x}"/>
                     <p:slider styleClass="sliderX" for="textX" minValue="-5" maxValue="5" step="0.1"/>
             </td></tr>
 
             <tr><td class="first">Введите Y:</td>
                 <td class="second">
-                    <p:inputText styleClass="textY animated" value="#{results.newPoint.y}"
+                    <p:inputText styleClass="textY animated" value="#{points.newPoint.y}"
                                  maxlength="8" a:placeholder="Число от -5 до 5...">
                         <f:validateRequired/>
                         <f:validateDoubleRange minimum="-5" maximum="5"/>
@@ -44,17 +44,17 @@
 
             <tr><td class="first">Введите R:</td>
                 <td class="second">
-                    <p:spinner styleClass="spinnerR animated" value="#{results.newPoint.r}"
+                    <p:spinner styleClass="spinnerR animated" value="#{points.newPoint.r}"
                                stepFactor="0.5" min="1" max="3"/>
             </td></tr>
 
             <tr><td colspan="2">
                 <h:commandButton styleClass="submit button" value="Добавить точку"
-                                 action="#{results.addPoint()}">
-                    <f:ajax render="resultsTable" execute="form" onevent="onevent"/>
+                                 action="#{points.addPoint()}">
+                    <f:ajax render="pointsTable" execute="form" onevent="onevent"/>
                 </h:commandButton>
-                <h:commandButton styleClass="button" value="Очистить" action="#{results.clear()}">
-                    <f:ajax render="resultsTable" onevent="onevent"/>
+                <h:commandButton styleClass="button" value="Очистить" action="#{points.clear()}">
+                    <f:ajax render="pointsTable" onevent="onevent"/>
                 </h:commandButton>
             </td></tr>
             </h:form>
@@ -63,7 +63,7 @@
             </tbody>
 
             <tfoot><tr><td colspan="3" id="outputContainer">
-                <h:dataTable id="resultsTable" value="#{results.points}" var="point">
+                <h:dataTable id="pointsTable" value="#{points.pointList}" var="point">
                     <h:column headerClass="variables">
                         <f:facet name="header">x</f:facet>
                         <h:outputText value="#{point.x}"/>

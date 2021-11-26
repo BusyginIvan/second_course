@@ -35,27 +35,21 @@ hr {
 .sliderX { margin-top: 10px }
 .spinnerR > .ui-spinner-button { z-index: auto }
 
-#resultsTable {
+#pointsTable {
     border: 1px solid #000720;
     border-collapse: collapse;
     margin: auto;
     width: 90%;
 }
 
-#resultsTable th {
+#pointsTable th {
     background-color: #000720;
     color: white;
     padding: 20px;
     width: 20%;
 }
 
-#resultsTable th:last-child { width: 40% }
+#pointsTable th:last-child { width: 40% }
 
-#resultsTable > tbody > tr > td { padding-top: 15px }
-#resultsTable > tbody > tr:last-child > td { padding-bottom: 15px }
-
-.notification {
-    color: white;
-    padding: 1%;
-    background-color: #000720;
-}
+#pointsTable > tbody > tr > td { padding-top: 15px }
+#pointsTable > tbody > tr:last-child > td { padding-bottom: 15px }
