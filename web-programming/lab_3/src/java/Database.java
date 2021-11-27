@@ -1,4 +1,3 @@
-import java.io.Serializable;
 import java.sql.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -60,9 +59,8 @@ public class Database {
 
     public void clearPoints() {
         executorService.execute(() -> {
-            try {
-                CLEAR_POINTS.executeUpdate();
-            } catch (SQLException e) {
+            try { CLEAR_POINTS.executeUpdate(); }
+            catch (SQLException e) {
                 logger.log(Level.WARNING, e.getMessage());
             }
         });
@@ -70,11 +68,14 @@ public class Database {
 
     public void destroy() {
         logger.log(Level.INFO, "Закрываем соединение с БД.");
+
         executorService.shutdown();
-        while (true)
-            try { if(executorService.awaitTermination(10, TimeUnit.SECONDS)) break; }
-            catch (InterruptedException e) { break; }
-        /*logger.log(Level.INFO, "Все процессы завершены: " + (executorService.isTerminated() ? "да" : "нет"));*/
+        try { executorService.awaitTermination(10, TimeUnit.SECONDS); }
+        catch (InterruptedException ignored) { }
+        logger.log(Level.INFO, (executorService.isTerminated() ? "Все" : "Не все") +
+                " процессы взаимодействия с БД были успешно выполнены.");
+        executorService.shutdownNow();
+
         close(SELECT_POINTS);
         close(INSERT_POINT);
         close(CLEAR_POINTS);
