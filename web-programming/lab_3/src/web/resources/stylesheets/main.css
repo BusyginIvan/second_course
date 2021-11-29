@@ -41,6 +41,12 @@ hr { width: 95% }
 .ui-state-focus { box-shadow: 0 0 0 0.2em #FBB0C4 !important }
 :root { --primary-color: #F41C52 !important }
 
+.message {
+    width: 70%;
+    margin: 0 auto 10px;
+    color: DarkRed;
+}
+
 #pointsTable {
     border: 1px solid #000720;
     border-collapse: collapse;

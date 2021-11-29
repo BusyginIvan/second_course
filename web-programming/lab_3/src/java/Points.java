@@ -13,11 +13,14 @@ public class Points implements Serializable {
     private Database database;
     private final Lock lock;
     private Point newPoint;
+    private String message;
 
     @Resource(name="jdbc/datasource")
-    public void setDatabase(DataSource dataSource) throws Exception {
-        database = new Database(dataSource);
-        database.loadPoints(pointList::add);
+    public void setDatabase(DataSource dataSource) {
+        try {
+            database = new Database(dataSource);
+            database.loadPoints(pointList::add);
+        } catch (Exception e) { message = e.getMessage(); }
     }
 
     public Points() {
@@ -28,21 +31,32 @@ public class Points implements Serializable {
 
     public List<Point> getPointList() { return pointList; }
     public Point getNewPoint() { return newPoint; }
+    public String getMessage() { return message; }
 
-    public void addPoint() {
-        database.addPoint(newPoint);
+    private void action(AutoCloseable databaseAction, Runnable localAction) {
+        if (database == null) return;
         lock.lock();
-        if (newPoint.valid()) {
-            pointList.add(newPoint);
-            newPoint = new Point();
+        try { databaseAction.close(); }
+        catch (Exception e) {
+            message = e.getMessage();
+            lock.unlock();
+            return;
         }
+        localAction.run();
         lock.unlock();
     }
 
+    public void addPoint() {
+        action(
+            () -> database.addPoint(newPoint),
+            () -> {
+                pointList.add(newPoint);
+                newPoint = new Point();
+            }
+        );
+    }
+
     public void clear() {
-        database.clearPoints();
-        lock.lock();
-        pointList.clear();
-        lock.unlock();
+        action(database::clearPoints, pointList::clear);
     }
 }

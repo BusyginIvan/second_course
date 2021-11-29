@@ -32,7 +32,7 @@ jQuery(document).ready(function($) {
     $('#canvas').mousedown(function (event) {
         let norm = k => Math.round((k - 2 - arrowsLength - indent) / scale * divisionsNumber * 1000) / 1000;
         $('.textX').val(norm(event.pageX - $(this).offset().left));
-        $('.textY').val(-norm(event.pageY - $(this).offset().top));
+        $('.textY').val(-norm(event.pageY - $(this).offset().top)).css('color', 'black');
         $('.submit').click();
     });
 });

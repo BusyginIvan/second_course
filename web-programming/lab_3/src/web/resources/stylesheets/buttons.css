@@ -19,11 +19,8 @@
     cursor: pointer;
 
     padding: 10px;
-    margin-left: 20px;
-    margin-right: 20px;
+    margin: 5px 20px;
 }
-
-.submit { margin-bottom: 10px; }
 
 .button:hover {
     background: white;

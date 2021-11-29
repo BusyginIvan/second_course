@@ -24,7 +24,7 @@
             <tr><td colspan="3"> <f:verbatim><hr/></f:verbatim> </td></tr>
 
             <tr><td colspan="2"/>
-            <td rowspan="5"><canvas id="canvas"/></td></tr>
+            <td rowspan="6" style="width: 45%"><canvas id="canvas"/></td></tr>
 
             <h:form id="form">
             <tr><td class="first">Установите X:</td>
@@ -58,6 +58,10 @@
                 </h:commandButton>
             </td></tr>
             </h:form>
+
+            <tr><td colspan="2">
+                <div class="message"> <h:outputText value="#{points.message}"/> </div>
+            </td></tr>
 
             <tr><td colspan="3"> <f:verbatim><hr/></f:verbatim> </td></tr>
             </tbody>
