@@ -6,11 +6,6 @@
 
 body { background-color: whitesmoke }
 
-#header {
-    font-size: 0.6em;
-    top: 0;
-}
-
 #header, #footer {
     z-index: 10;
     width: 100%;
@@ -24,6 +19,13 @@ body { background-color: whitesmoke }
     bottom: 0;
     padding: 10px;
 }
+
+#header {
+    font-size: 0.6em;
+    top: 0;
+}
+
+/*#header > h1 { margin-top: 0 }*/
 
 #figure img {
     width: 47px;

@@ -1,21 +1,29 @@
+import javax.annotation.Resource;
+import javax.faces.bean.ManagedBean;
+import javax.sql.DataSource;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+@ManagedBean
 public class Points implements Serializable {
     private final List<Point> pointList;
-    private final Database database;
+    private Database database;
     private final Lock lock;
     private Point newPoint;
 
-    public Points() throws Exception {
+    @Resource(name="jdbc/datasource")
+    public void setDatabase(DataSource dataSource) throws Exception {
+        database = new Database(dataSource);
+        database.loadPoints(pointList::add);
+    }
+
+    public Points() {
         lock = new ReentrantLock();
         pointList = new ArrayList<>();
         newPoint = new Point();
-        database = DatabaseBuilder.newDatabase("data_");
-        database.loadPoints(pointList::add);
     }
 
     public List<Point> getPointList() { return pointList; }
@@ -32,9 +40,9 @@ public class Points implements Serializable {
     }
 
     public void clear() {
+        database.clearPoints();
         lock.lock();
         pointList.clear();
-        database.clearPoints();
         lock.unlock();
     }
 }

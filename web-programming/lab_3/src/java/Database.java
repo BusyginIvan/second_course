@@ -1,3 +1,6 @@
+import javax.annotation.PreDestroy;
+import javax.faces.bean.ManagedBean;
+import javax.sql.DataSource;
 import java.sql.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -6,6 +9,7 @@ import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+@ManagedBean
 public class Database {
     private static final Logger logger = Logger.getLogger(Database.class.getName());
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
@@ -14,16 +18,14 @@ public class Database {
     private final PreparedStatement SELECT_POINTS;
     private final PreparedStatement CLEAR_POINTS;
 
-    public Database(String url, String login, String password) throws Exception {
-        connection = DriverManager.getConnection(url, login, password);
+    public Database(DataSource dataSource) throws Exception {
+        connection = dataSource.getConnection();
 
         INSERT_POINT = connection.prepareStatement("insert into points (x, y, r) values (?, ?, ?)");
         SELECT_POINTS = connection.prepareStatement("select x, y, r from points");
         CLEAR_POINTS = connection.prepareStatement("delete from points");
 
         logger.log(Level.INFO, "Установлено соединение с БД.");
-
-        Runtime.getRuntime().addShutdownHook(new Thread(this::destroy));
     }
 
     public void addPoint(Point point) {
@@ -66,6 +68,7 @@ public class Database {
         });
     }
 
+    @PreDestroy
     public void destroy() {
         logger.log(Level.INFO, "Закрываем соединение с БД.");
 

@@ -1,5 +1,4 @@
-#mainTable { margin: 80px auto }
-#mainTable tfoot * { margin-bottom: 4% !important }
+#mainTable { margin: 82px auto 99px }
 
 h3 {
     line-height: 1.5;
@@ -60,3 +59,5 @@ hr { width: 95% }
 
 #pointsTable > tbody > tr > td { padding-top: 15px }
 #pointsTable > tbody > tr:last-child > td { padding-bottom: 15px }
+
+#pointsTable { margin-bottom: 10px }

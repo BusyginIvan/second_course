@@ -1,5 +1,5 @@
 const divisionsNumber = 5;
-const arrowsLength = 140, indent = 10, scale = arrowsLength - 20;
+const arrowsLength = 160, indent = 10, scale = arrowsLength - 20;
 
 const canvas = document.getElementById('canvas');
 canvas.setAttribute('width', 2 * (arrowsLength + indent) + "px");
@@ -15,13 +15,12 @@ function redraw() {
     clear();
     drawArea();
     drawArrows();
-    drawText();
     drawPoints();
+    drawText();
 }
 
 function clear() {
     ctx.fillStyle = 'white';
-    ctx.globalAlpha = 1;
     ctx.fillRect(-arrowsLength, -arrowsLength, arrowsLength * 2, arrowsLength * 2);
 }
 
@@ -41,12 +40,13 @@ function drawArea() {
 
     ctx.stroke();
     ctx.fill();
+
+    ctx.globalAlpha = 1;
 }
 
 function drawArrows() {
     ctx.strokeStyle = '#000720';
     ctx.fillStyle = '#000720';
-    ctx.globalAlpha = 1;
 
     ctx.beginPath();
 
@@ -69,7 +69,9 @@ function drawArrows() {
 }
 
 function drawText() {
-    let indent = 4;
+    let indent = 6;
+    ctx.strokeStyle = '#000720';
+    ctx.fillStyle = '#000720';
     ctx.font = "bold 17px TimesNewRoman";
 
     ctx.textAlign = "center";
