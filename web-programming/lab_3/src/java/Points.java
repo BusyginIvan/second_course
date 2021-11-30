@@ -1,3 +1,4 @@
+import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
 import javax.faces.bean.ManagedBean;
 import javax.sql.DataSource;
@@ -28,6 +29,9 @@ public class Points implements Serializable {
         pointList = new ArrayList<>();
         newPoint = new Point();
     }
+
+    @PreDestroy
+    public void destroy() { database.destroy(); }
 
     public List<Point> getPointList() { return pointList; }
     public Point getNewPoint() { return newPoint; }

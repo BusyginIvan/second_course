@@ -1,10 +1,7 @@
-import javax.faces.bean.ManagedBean;
-import javax.annotation.PreDestroy;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.function.Consumer;
 
-@ManagedBean
 public class Database {
     private final Connection connection;
     private final PreparedStatement INSERT_POINT;
@@ -58,7 +55,6 @@ public class Database {
         );}
     }
 
-    @PreDestroy
     public void destroy() {
         close(SELECT_POINTS);
         close(INSERT_POINT);
