@@ -16,7 +16,7 @@ public class Points implements Serializable {
 
     @Resource(name="jdbc/datasource")
     public void setDatabase(DataSource dataSource) {
-        synchronized (pointList) {
+        synchronized (database) {
             if (database == null)
                 try {
                     database = new Database(dataSource);
@@ -35,7 +35,7 @@ public class Points implements Serializable {
     public String getMessage() { return message; }
 
     private void action(AutoCloseable databaseAction, Runnable localAction) {
-        synchronized (pointList) {
+        synchronized (database) {
             if (database == null) return;
             try {
                 databaseAction.close();
