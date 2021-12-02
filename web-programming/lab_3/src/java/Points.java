@@ -10,13 +10,14 @@ import java.util.List;
 public class Points implements Serializable {
     private static final List<Point> pointList = new ArrayList<>();
     private static Database database = null;
+    private static final Object LOCKER = new Object();
 
     private Point newPoint = new Point();
     private String message;
 
     @Resource(name="jdbc/datasource")
     public void setDatabase(DataSource dataSource) {
-        synchronized (database) {
+        synchronized (LOCKER) {
             if (database == null)
                 try {
                     database = new Database(dataSource);
@@ -35,7 +36,7 @@ public class Points implements Serializable {
     public String getMessage() { return message; }
 
     private void action(AutoCloseable databaseAction, Runnable localAction) {
-        synchronized (database) {
+        synchronized (LOCKER) {
             if (database == null) return;
             try {
                 databaseAction.close();
