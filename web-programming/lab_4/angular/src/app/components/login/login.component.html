@@ -1,0 +1,25 @@
+<div id="list">
+  <table>
+    <col width="20%"><col width="80%">
+    <tr>
+      <td>Логин:</td>
+      <td><input type="text" [(ngModel)]="login"></td>
+    </tr><tr>
+      <td>Пароль:</td>
+      <td><input type="password" [(ngModel)]="password"></td>
+    </tr>
+  </table>
+
+  <div id="buttons_div">
+    <div id="left_button_div" class="button_div">
+      <button (click)="authorization()">Авторизоваться</button>
+    </div>
+    <div id="right_button_div" class="button_div">
+      <button (click)="registration()">Зарегистрироваться</button>
+    </div>
+  </div>
+
+  <div id="messages_div" *ngIf="showMessages">
+    <app-messages></app-messages>
+  </div>
+</div>

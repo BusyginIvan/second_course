@@ -1,0 +1,16 @@
+$light: #F6F6FB
+$dark: #000720
+$crimson: #F41C52
+$pink: #FBB0C4
+
+@mixin desktop
+  @media (min-width: 1040px)
+    @content
+
+@mixin tablet
+  @media (min-width: 799px) and (max-width: 1039px)
+    @content
+
+@mixin phone
+  @media (max-width: 798px)
+    @content

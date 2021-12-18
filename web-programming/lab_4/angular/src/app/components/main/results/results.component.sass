@@ -1,0 +1,27 @@
+@import "src/variables"
+
+#note
+  background: $dark
+  color: white
+  padding: 8px 14px
+  display: inline-block
+
+table
+  border: 1px solid $dark
+  border-collapse: collapse
+  margin: auto
+  width: 90%
+  min-width: 300px
+
+  th
+    padding: 13px 5px
+    background-color: $dark
+    color: white
+
+  $indent: 7px
+  td
+    padding: $indent 0
+  tr:first-child > td
+    padding: ($indent * 2) 0 $indent
+  tr:last-child > td
+    padding: $indent 0 ($indent * 2)

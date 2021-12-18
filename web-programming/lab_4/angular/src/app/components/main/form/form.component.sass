@@ -1,0 +1,58 @@
+@import "src/variables"
+
+table
+  width: 100%
+  border-spacing: 10px
+
+.first_col
+  text-align: right
+  padding-right: 10px
+  @include desktop
+    min-width: 120px
+  @include tablet
+    min-width: 115px
+  @include phone
+    min-width: 100px
+
+.second_col
+  min-width: 240px
+
+input[type=radio]
+  -webkit-appearance: none
+  margin: 1px
+
+  @mixin sizes($size)
+    width: $size
+    height: $size
+    border-radius: $size
+
+  @include desktop
+    @include sizes(13px)
+  @include tablet
+    @include sizes(12px)
+  @include phone
+    @include sizes(11px)
+
+input[type=radio]:checked
+  transform: scale(1.05)
+  background-color: $pink
+  box-shadow: 0 0 0 0.2em $pink
+
+input[type=text]
+  width: 90%
+  max-width: 380px
+
+span
+  margin: 0 5px
+
+button
+  margin: 10px 2.5%
+  @include desktop
+    height: 45px
+    font-size: 12pt
+  @include tablet
+    height: 45px
+    font-size: 12pt
+  @include phone
+    height: 40px
+    font-size: 11pt
