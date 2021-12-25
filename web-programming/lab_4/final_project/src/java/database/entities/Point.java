@@ -1,3 +1,5 @@
+package database.entities;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -20,10 +22,4 @@ public class Point {
     private boolean inRectangle() { return x >= 0 && x <= r/2 && y >= 0 && y <= r; }
     private boolean inTriangle() { return x >= 0 && y <= 0 && y >= -r + x; }
     private boolean inCircle() { return x <= 0 && y <= 0 && x*x + y*y <= r*r/4; }
-
-    public boolean valid() {
-        return validR(r) && validCoordinate(x) && validCoordinate(y);
-    }
-    private boolean validR(float r) { return r >= 1 && r <= 3; }
-    private boolean validCoordinate(float c) { return c >= -5 && c <= 5; }
 }

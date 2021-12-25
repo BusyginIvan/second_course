@@ -63,7 +63,7 @@ export class CanvasComponent implements AfterViewInit {
     const y = -norm(event.pageY - this.canvas.getBoundingClientRect().y);
     if (this.radiusService.radius) {
       if (x >= -5 && x <= 5 && y >= -5 && y <= 5)
-        this.pointsService.addPoint(x, y, this.radiusService.radius);
+        this.pointsService.addPoint({ x: x, y: y, r: this.radiusService.radius });
     } else this.messageService.add('Чтобы добавить точку, необходимо выбрать радиус.');
   }
 

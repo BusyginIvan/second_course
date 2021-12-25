@@ -13,7 +13,6 @@ import { FormComponent } from '../components/main/form/form.component';
 import { CanvasComponent } from '../components/main/canvas/canvas.component';
 import { ResultsComponent } from '../components/main/results/results.component';
 import { MessagesComponent } from '../components/messages/messages.component';
-import {ScreenSizeService} from "../services/screen-size.service";
 
 @NgModule({
   imports: [
@@ -33,6 +32,12 @@ import {ScreenSizeService} from "../services/screen-size.service";
     ResultsComponent,
     MessagesComponent,
   ],
-  bootstrap: [ AppComponent ]
+  bootstrap: [ AppComponent ],
+  providers: [
+    {
+      provide: 'serverUrl',
+      useValue: 'http://localhost:8080/rest/'
+    }
+  ]
 })
 export class AppModule { }

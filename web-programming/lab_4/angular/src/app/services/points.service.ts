@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from "./http.service";
 import { Point } from "../structures/point";
-import {MessagesService} from "./messages.service";
-import {Observable, tap} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -18,18 +16,18 @@ export class PointsService {
   constructor(private httpService: HttpService) { }
 
   loadPoints() {
-    this.httpService.loadPoints().subscribe(answer => this.points = answer);
+    this.httpService.getPoints().subscribe(answer => this.points = answer);
   }
 
-  addPoint(x: number, y: number, r: number) {
-    return  this.httpService.addPoint(x, y, r).subscribe(answer => {
+  addPoint(point: Point) {
+    return  this.httpService.postPoint(point).subscribe(answer => {
       this.points.push(answer);
       this.action();
     });
   }
 
   clearPoints() {
-    this.httpService.clearPoints().subscribe(() => {
+    this.httpService.deletePoints().subscribe(() => {
       this.points = [];
       this.action();
     });

@@ -1,68 +1,73 @@
-import { Injectable } from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from "@angular/common/http";
-import {catchError, Observable, tap, throwError} from "rxjs";
-import {Point} from "../structures/point";
-import {MessagesService} from "./messages.service";
+import {Inject, Injectable} from '@angular/core';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
+import { catchError, Observable, tap, throwError } from "rxjs";
+import { Point } from "../structures/point";
+import { MessagesService } from "./messages.service";
+import { Credentials } from "../structures/credentials";
+import { Token } from "../structures/token";
 
 @Injectable({ providedIn: 'root' })
 export class HttpService {
-  private options = {};
-  public authorized = false;
+  private authUrl: string;
+  private pointsUrl: string;
+  private token: string = '';
 
-  constructor(private http: HttpClient, private messageService: MessagesService) { }
-
-  private static url(host: string): string {
-    return 'rest/' + host
+  constructor(
+    private http: HttpClient,
+    private messageService: MessagesService,
+    @Inject('serverUrl') private serverUrl: string
+  ) {
+    this.authUrl = serverUrl + 'auth/';
+    this.pointsUrl = serverUrl + 'points';
   }
 
-  private setOptions(login: string, password: string) {
-    this.options = {
-      headers: new HttpHeaders()
-        .set("login", login)
-        .set("password", password)
+  private get options() {
+    return {
+      headers: new HttpHeaders({ authorization: this.token })
     };
   }
 
+  public get authorized(): boolean {
+    return this.token !== '';
+  }
+
+  public logout() { this.token = '' }
+
   private handleError(error: HttpErrorResponse) {
-    console.error(error);
-    const errorMessage = 'Ошибка HTTP. Код состояния: ' + error.status;
-    this.messageService.add(errorMessage);
-    return throwError(errorMessage);
+    console.error('Ошибка HTTP (' + error.status + '). ' + error.message);
+    this.messageService.add(error.message);
+    return throwError(error);
   }
 
-  registration(login: string, password: string): Observable<boolean> {
-    this.setOptions(login, password);
-    return this.http.get<boolean>(HttpService.url('registration'), this.options).pipe(
-      tap(answer => this.authorized = answer),
+  login(credentials: Credentials): Observable<any> {
+    return this.postCredentials('login', credentials);
+  }
+
+  register(credentials: Credentials): Observable<any> {
+    return this.postCredentials('register', credentials);
+  }
+
+  private postCredentials(host: string, credentials: Credentials): Observable<any> {
+    return this.http.post<Token>(this.authUrl + host, credentials).pipe(
+      tap(response => this.token = response.token),
       catchError(this.handleError.bind(this))
     );
   }
 
-  authorization(login: string, password: string): Observable<boolean> {
-    this.setOptions(login, password);
-    return this.http.get<boolean>(HttpService.url('authorization'), this.options).pipe(
-      tap(answer => this.authorized = answer),
+  getPoints(): Observable<Point[]> {
+    return this.http.get<Point[]>(this.pointsUrl, this.options).pipe(
       catchError(this.handleError.bind(this))
     );
   }
 
-  logout() { this.authorized = false }
-
-  loadPoints(): Observable<Point[]> {
-    return this.http.get<Point[]>(HttpService.url('getPoints'), this.options).pipe(
+  postPoint(point: Point): Observable<Point> {
+    return this.http.post<Point>(this.pointsUrl, point, this.options).pipe(
       catchError(this.handleError.bind(this))
     );
   }
 
-  addPoint(x: number, y: number, r: number): Observable<Point> {
-    const body = new HttpParams().set('x', x).set('y', y).set('r', r);
-    return this.http.post<Point>(HttpService.url('addPoint'), body, this.options).pipe(
-      catchError(this.handleError.bind(this))
-    );
-  }
-
-  clearPoints(): Observable<void> {
-    return this.http.delete<void>(HttpService.url('clearPoints'), this.options).pipe(
+  deletePoints(): Observable<any> {
+    return this.http.delete(this.pointsUrl, this.options).pipe(
       catchError(this.handleError.bind(this))
     );
   }

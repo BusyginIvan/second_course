@@ -8,4 +8,8 @@ import {PointsService} from "../../../services/points.service";
 })
 export class ResultsComponent {
   constructor(public pointsService: PointsService) { }
+
+  public round(num: number) {
+    return Math.round(num * 1000) / 1000;
+  }
 }

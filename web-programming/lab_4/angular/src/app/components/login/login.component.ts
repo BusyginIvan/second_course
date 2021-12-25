@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {HttpService} from "../../services/http.service";
 import {MessagesService} from "../../services/messages.service";
 import {Router} from "@angular/router";
+import { Credentials } from "../../structures/credentials";
 
 @Component({
   selector: 'app-login',
@@ -18,6 +19,10 @@ export class LoginComponent {
     private router: Router
   ) { }
 
+  private get credentials(): Credentials {
+    return { username: this.login, password: this.password };
+  }
+
   private addMessage(message: string) {
     this.messagesService.add(message);
     this.showMessages = true;
@@ -33,12 +38,9 @@ export class LoginComponent {
 
     if (this.messagesService.messages.length > 0) return;
 
-    this.httpService.registration(this.login, this.password).subscribe(
-      answer => {
-        if (answer) this.router.navigate(['/main']);
-        else this.addMessage('Такой логин уже существует.');
-      },
-      error => this.addMessage(error)
+    this.httpService.register(this.credentials).subscribe(
+      answer => this.router.navigate(['/main']),
+      error => this.showMessages = true
     );
   }
 
@@ -52,12 +54,9 @@ export class LoginComponent {
 
     if (this.messagesService.messages.length > 0) return;
 
-    this.httpService.authorization(this.login, this.password).subscribe(
-      answer => {
-        if (answer) this.router.navigate(['/main']);
-        else this.addMessage('Неправильный логин или пароль.');
-      },
-      error => this.addMessage(error)
+    this.httpService.login(this.credentials).subscribe(
+      answer => this.router.navigate(['/main']),
+      error => this.showMessages = true
     );
   }
 }

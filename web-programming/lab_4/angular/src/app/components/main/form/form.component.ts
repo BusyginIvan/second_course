@@ -4,6 +4,7 @@ import {HttpService} from "../../../services/http.service";
 import {Router} from "@angular/router";
 import {MessagesService} from "../../../services/messages.service";
 import {RadiusService} from "../../../services/radius.service";
+import {Point} from "../../../structures/point";
 
 @Component({
   selector: 'app-form',
@@ -26,6 +27,10 @@ export class FormComponent {
     private router: Router
   ) { }
 
+  private get currentPoint(): Point {
+    return {x: this.x, y: this.getYAsNum(), r: this.radiusService.radius};
+  }
+
   logout() {
     this.httpService.logout();
     this.router.navigate(['/login']);
@@ -39,7 +44,7 @@ export class FormComponent {
   addPoint() {
     this.messageService.clear();
     if (this.x && this.validY() && this.radiusService.radius) {
-      this.pointsService.addPoint(this.x, this.getYAsNum(), this.radiusService.radius);
+      this.pointsService.addPoint(this.currentPoint);
       return;
     }
     if (this.y == '')
@@ -62,17 +67,5 @@ export class FormComponent {
   private validY(): boolean {
     const y = this.getYAsNum();
     return this.y != '' && !isNaN(y) && y >= -5 && y <= 5;
-  }
-
-  onchange(value: number) {
-    console.log('onchange: ' + value);
-  }
-
-  onclick(value: number) {
-    console.log('onclick: ' + value);
-  }
-
-  click(value: number) {
-    console.log('click: ' + value);
   }
 }
