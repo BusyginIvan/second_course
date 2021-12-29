@@ -6,17 +6,17 @@ import { Point } from "../structures/point";
   providedIn: 'root'
 })
 export class PointsService {
-  points: Point[] = [
-    /*{x: 1, y: 1, r: 2, result: true},
-    {x: 1, y: 1, r: 2, result: true},
-    {x: 1, y: 1, r: 2, result: true}*/
-  ];
+  points: Point[] = [];
   action = () => {};
 
   constructor(private httpService: HttpService) { }
 
   loadPoints() {
-    this.httpService.getPoints().subscribe(answer => this.points = answer);
+    this.points = [];
+    this.httpService.getPoints().subscribe(answer => {
+      this.points = answer;
+      this.action();
+    });
   }
 
   addPoint(point: Point) {

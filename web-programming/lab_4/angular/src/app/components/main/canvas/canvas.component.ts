@@ -2,8 +2,8 @@ import { AfterViewInit, Component } from '@angular/core';
 import { ScreenSizeService } from "../../../services/screen-size.service";
 import { MessagesService } from "../../../services/messages.service";
 import { RadiusService } from "../../../services/radius.service";
-import {PointsService} from "../../../services/points.service";
-import {Point} from "../../../structures/point";
+import { PointsService } from "../../../services/points.service";
+import { Point } from "../../../structures/point";
 
 const divisionsNumber = 5, indent = 10;
 const darkColor = '#000720';
@@ -16,18 +16,20 @@ const darkColor = '#000720';
   styleUrls: ['./canvas.component.sass']
 })
 export class CanvasComponent implements AfterViewInit {
-  canvasSize!: number;
-  arrowsLength!: number;
-  scale!: number;
-  canvas!: HTMLCanvasElement;
-  ctx!: CanvasRenderingContext2D;
+  public canvasSize!: number;
+  private arrowsLength!: number;
+  private scale!: number;
+  private canvas!: HTMLCanvasElement;
+  private ctx!: CanvasRenderingContext2D;
 
   constructor(
-    public screenSize: ScreenSizeService,
-    public messageService: MessagesService,
-    public radiusService: RadiusService,
+    private screenSize: ScreenSizeService,
+    private messageService: MessagesService,
+    private radiusService: RadiusService,
     private pointsService: PointsService,
   ) { }
+
+  public get r() { return this.radiusService.radius }
 
   private update(newSize: number) {
     this.canvasSize = newSize;
@@ -61,9 +63,9 @@ export class CanvasComponent implements AfterViewInit {
     let norm = (k: number) => Math.round((k - 2 - this.arrowsLength - indent) / this.scale * divisionsNumber * 1000) / 1000;
     const x = norm(event.pageX - this.canvas.getBoundingClientRect().x);
     const y = -norm(event.pageY - this.canvas.getBoundingClientRect().y);
-    if (this.radiusService.radius) {
+    if (this.r != undefined) {
       if (x >= -5 && x <= 5 && y >= -5 && y <= 5)
-        this.pointsService.addPoint({ x: x, y: y, r: this.radiusService.radius });
+        this.pointsService.addPoint({ x: x, y: y, r: this.r });
     } else this.messageService.add('Чтобы добавить точку, необходимо выбрать радиус.');
   }
 
@@ -75,14 +77,16 @@ export class CanvasComponent implements AfterViewInit {
     this.drawPoints();
   }
 
-  clear() {
+  private validR() { return this.r != undefined && this.r >= 1 && this.r <= 3 }
+
+  private clear() {
     this.ctx.fillStyle = 'white';
     this.ctx.fillRect(-this.arrowsLength, -this.arrowsLength, this.arrowsLength * 2, this.arrowsLength * 2);
   }
 
-  drawArea() {
-    if (!this.radiusService.radius) return;
-    let figuresScale = this.radiusService.radius / divisionsNumber * this.scale;
+  private drawArea() {
+    if (!this.validR()) return;
+    let figuresScale = this.r / divisionsNumber * this.scale;
     this.ctx.strokeStyle = 'navy';
     this.ctx.fillStyle = 'blue';
     this.ctx.globalAlpha = 0.5;
@@ -102,7 +106,7 @@ export class CanvasComponent implements AfterViewInit {
     this.ctx.globalAlpha = 1;
   }
 
-  drawArrows() {
+  private drawArrows() {
     this.ctx.strokeStyle = darkColor;
     this.ctx.fillStyle = darkColor;
 
@@ -141,7 +145,7 @@ export class CanvasComponent implements AfterViewInit {
     this.ctx.strokeRect(x, y, w, h);
   }
 
-  drawText() {
+  private drawText() {
     let indent;
     if (this.screenSize.isDesktop || this.screenSize.isTablet) {
       indent = 6;
@@ -170,7 +174,7 @@ export class CanvasComponent implements AfterViewInit {
   }
 
   private drawPoint(point: Point) {
-    if (point.r !== this.radiusService.radius) return;
+    if (point.r !== this.r) return;
 
     if (point.result) {
       this.ctx.strokeStyle = 'DarkGreen';
@@ -187,7 +191,8 @@ export class CanvasComponent implements AfterViewInit {
     this.ctx.fill();
   }
 
-  drawPoints() {
+  private drawPoints() {
+    if (!this.validR()) return;
     this.pointsService.points.forEach(point => this.drawPoint(point));
   }
 }

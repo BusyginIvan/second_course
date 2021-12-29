@@ -18,9 +18,13 @@
   </tr><tr>
     <td class="first_col">Выберите R:</td>
     <td class="second_col">
-      <span *ngFor="let value of rValues">
-      {{value}} <input type="radio" name="radioR" class="animated"
-                (click)="radiusService.setR(value)" value="{{value}}">
+      <span *ngFor="let value of firstLineValues">
+        {{value}} <input type="radio" name="radioR" class="animated"
+                         (click)="radiusService.setR(value)" value="{{value}}">
+      </span><br>
+      <span *ngFor="let value of secondLineValues">
+        {{value}} <input type="radio" name="radioR" class="animated"
+                         (click)="radiusService.setR(value)" value="{{value}}">
       </span>
     </td>
   </tr>

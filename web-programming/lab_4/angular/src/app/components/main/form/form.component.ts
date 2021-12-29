@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import {PointsService} from "../../../services/points.service";
-import {HttpService} from "../../../services/http.service";
-import {Router} from "@angular/router";
-import {MessagesService} from "../../../services/messages.service";
-import {RadiusService} from "../../../services/radius.service";
-import {Point} from "../../../structures/point";
+import { PointsService } from "../../../services/points.service";
+import { HttpService } from "../../../services/http.service";
+import { Router } from "@angular/router";
+import { MessagesService } from "../../../services/messages.service";
+import { RadiusService } from "../../../services/radius.service";
+import { Point } from "../../../structures/point";
 
 @Component({
   selector: 'app-form',
@@ -14,21 +14,22 @@ import {Point} from "../../../structures/point";
 export class FormComponent {
   firstLineValues = [-5, -4, -3, -2, -1];
   secondLineValues = [0, 1, 2, 3];
-  rValues = [1, 2, 3];
 
   x!: number;
   y = '';
 
   constructor(
+    private router: Router,
     private httpService: HttpService,
     private pointsService: PointsService,
-    public messageService: MessagesService,
     public radiusService: RadiusService,
-    private router: Router
+    private messageService: MessagesService,
   ) { }
 
+  public get r(): number { return this.radiusService.radius }
+
   private get currentPoint(): Point {
-    return {x: this.x, y: this.getYAsNum(), r: this.radiusService.radius};
+    return {x: this.x, y: this.getYAsNum(), r: this.r};
   }
 
   logout() {
@@ -43,7 +44,7 @@ export class FormComponent {
 
   addPoint() {
     this.messageService.clear();
-    if (this.x && this.validY() && this.radiusService.radius) {
+    if (this.x && this.validY() && this.r != undefined) {
       this.pointsService.addPoint(this.currentPoint);
       return;
     }
@@ -56,7 +57,7 @@ export class FormComponent {
       this.messageService.add('Координата y должна лежать в диапазоне от -5 до 5.');
     if (!this.x)
       this.messageService.add('Необходимо выбрать x.');
-    if (!this.radiusService.radius)
+    if (this.r == undefined)
       this.messageService.add('Необходимо выбрать r.');
   }
 

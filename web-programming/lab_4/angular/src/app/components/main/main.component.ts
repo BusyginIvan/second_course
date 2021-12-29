@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ScreenSizeService } from "../../services/screen-size.service";
 import { MessagesService } from "../../services/messages.service";
-import {PointsService} from "../../services/points.service";
+import { PointsService } from "../../services/points.service";
 
 @Component({
   selector: 'app-main',

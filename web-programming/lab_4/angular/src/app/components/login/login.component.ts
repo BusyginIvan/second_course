@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import {HttpService} from "../../services/http.service";
-import {MessagesService} from "../../services/messages.service";
-import {Router} from "@angular/router";
+import { Router } from "@angular/router";
+
 import { Credentials } from "../../structures/credentials";
+import { HttpService } from "../../services/http.service";
+import { MessagesService } from "../../services/messages.service";
 
 @Component({
   selector: 'app-login',

@@ -8,14 +8,16 @@
     <!--<persistence-unit name="postgre" transaction-type="JTA">
         <jta-data-source>java:jboss/PostgreSQL</jta-data-source>
         <class>database.entities.Point</class> <class>database.entities.User</class>
+        <properties>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+        </properties>
     </persistence-unit>-->
 
     <persistence-unit name="oracle">
         <jta-data-source>java:/OracleDS</jta-data-source>
         <class>database.entities.Point</class> <class>database.entities.User</class>
+        <properties>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+        </properties>
     </persistence-unit>
 </persistence>
-
-        <!--<properties>
-                    <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
-                </properties>-->

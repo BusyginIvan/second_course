@@ -15,7 +15,7 @@ public class PointData {
     @DecimalMin(value = "-5", message = "y не может быть меньше -5.")
     @NotNull(message = "Требуется числовое значение y.")
     private float y;
-    @InArray(array = {/* -5, -4, -3, -2, -1, 0, */ 1, 2, 3}, message = "Недопустимое значение r.")
+    @InArray(array = { 1, 2, 3 }, message = "Недопустимое значение r. Ожидается 1, 2 или 3.")
     @NotNull(message = "Требуется числовое значение r.")
     private int r;
 }

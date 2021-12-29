@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {PointsService} from "../../../services/points.service";
+import { PointsService } from "../../../services/points.service";
 
 @Component({
   selector: 'app-results',
