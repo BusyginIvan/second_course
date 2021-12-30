@@ -8,8 +8,6 @@ import { MainGuard } from "../components/main/main.guard";
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'main', redirectTo: '/main' },
-  { path: 'login', redirectTo: '/login' },
   { path: 'login', component: LoginComponent },
   { path: 'main', component: MainComponent, canActivate: [MainGuard] },
   { path: '**', component: PageNotFoundComponent },
