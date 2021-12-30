@@ -7,10 +7,12 @@ import { MainComponent } from "../components/main/main.component";
 import { MainGuard } from "../components/main/main.guard";
 
 const routes: Routes = [
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: 'main', redirectTo: '/main' },
+  { path: 'login', redirectTo: '/login' },
   { path: 'login', component: LoginComponent },
   { path: 'main', component: MainComponent, canActivate: [MainGuard] },
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: '**', component: PageNotFoundComponent }
+  { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({
