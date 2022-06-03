@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<h:head>
+    <link rel="icon" type="image/jpg" href="#{resource['images/favicon.jpg']}"/>
+    <h:outputStylesheet library="stylesheets" name="template.css"/>
+    <ui:insert name="head"/>
+</h:head>
+
+<h:body>
+    <div id="header" class="shaded animated">
+        <h1>Лабораторная работа №4, вариант 1236.</h1>
+        <h2>Бусыгин Иван и Залевский Дмитрий, группа P3212.</h2>
+    </div>
+
+    <ui:insert name="content"/>
+
+    <div id="footer" class="shaded animated"><div id="figure">
+        <h:graphicImage title="Перейти на сайт кафедры вычислительной техники НИУ ИТМО"
+                        library="images" name="pulpit_logo.png"/>
+        <span>2022</span>
+    </div></div>
+</h:body>
+</html>

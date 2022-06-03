@@ -1,0 +1,36 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+
+<project xmlns:ivy="antlib:org.apache.ivy.ant">
+	<property file="build.properties"/>
+	<property name="dir.lib" location="lib"/>
+
+	<target name="ivy">
+		<ivy:resolve/>
+		<ivy:cachepath pathid="path.main" conf="main"/>
+		<ivy:retrieve sync="true" type="jar" pattern="${dir.lib}/[conf]/[artifact].[ext]"/>
+	</target>
+
+	<target name="compile" depends="ivy">
+		<delete dir="${dir.classes.main}"/>
+		<mkdir dir="${dir.classes.main}"/>
+		<javac srcdir="${dir.src.main}" destdir="${dir.classes.main}" includeAntRuntime="false">
+		  	<classpath> <path refid="path.main"/> </classpath>
+		</javac>
+	</target>
+
+	<target name="build" depends="compile">
+		<delete file="${war.archive}"/>
+		<delete dir="${dir.exploded}"/>
+
+		<copy todir="${dir.exploded}"> <fileset dir="${dir.web}"/> </copy>
+		<copy todir="${dir.exploded}/WEB-INF/classes"> <fileset dir="${dir.classes.main}"/> </copy>
+		<copy todir="${dir.exploded}/WEB-INF/lib"> <fileset dir="${dir.lib}/main"/> </copy>
+
+		<war destfile="${war.archive}" basedir="${dir.exploded}"/>
+	</target>
+
+	<target name="clean">
+		<delete dir="${dir.exploded}"/>
+		<delete dir="${dir.classes}"/>
+	</target>
+</project>

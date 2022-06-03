@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="template.xhtml">
+    <ui:define name="head">
+        <title>ЛР №3</title>
+        <h:outputStylesheet library="stylesheets" name="main.css"/>
+        <h:outputStylesheet library="stylesheets" name="buttons.css"/>
+    </ui:define>
+    <ui:define name="content">
+        <table id="mainTable" class="shaded list">
+            <thead><tr><td colspan="3"><h3>
+                    Проверка попадания точки в ограниченную область.<br/>
+                    <h:link outcome="goIndex">Вернуться на стартовую страницу.</h:link>
+            </h3></td></tr></thead>
+
+            <tbody>
+            <tr><td colspan="3"> <f:verbatim><hr/></f:verbatim> </td></tr>
+
+            <tr><td colspan="2"/>
+            <td rowspan="6" style="width: 45%"><canvas id="canvas"/></td></tr>
+
+            <h:form id="form">
+            <tr><td class="first">Установите X:</td>
+                <td class="second">
+                    <p:inputText id="textX" styleClass="textX animated" value="#{points.newPoint.x}"/>
+                    <p:slider styleClass="sliderX" for="textX" minValue="-5" maxValue="5" step="0.1"/>
+            </td></tr>
+
+            <tr><td class="first">Введите Y:</td>
+                <td class="second">
+                    <p:inputText styleClass="textY animated" value="#{points.newPoint.y}"
+                                 maxlength="8" a:placeholder="Число от -5 до 5...">
+                        <f:validateRequired/>
+                        <f:validateDoubleRange minimum="-5" maximum="5"/>
+                    </p:inputText>
+            </td></tr>
+
+            <tr><td class="first">Введите R:</td>
+                <td class="second">
+                    <p:spinner styleClass="spinnerR animated" value="#{points.newPoint.r}"
+                               stepFactor="0.5" min="1" max="3"/>
+            </td></tr>
+
+            <tr><td colspan="2">
+                <h:commandButton styleClass="submit button" value="Добавить точку" action="#{points.addPoint()}">
+                    <f:ajax render="pointsTable" execute="form" onevent="onevent"/>
+                </h:commandButton>
+                <h:commandButton styleClass="button" value="Очистить" action="#{points.clearPoints()}">
+                    <f:ajax render="pointsTable" onevent="onevent"/>
+                </h:commandButton>
+            </td></tr>
+            </h:form>
+
+            <tr><td colspan="2">
+                <div class="message"> <h:outputText value="#{points.message}"/> </div>
+            </td></tr>
+
+            <tr><td colspan="3"> <f:verbatim><hr/></f:verbatim> </td></tr>
+            </tbody>
+
+            <tfoot><tr><td colspan="3" id="outputContainer">
+                <h:dataTable id="pointsTable" value="#{points.pointList}" var="point">
+                    <h:column headerClass="variables">
+                        <f:facet name="header">x</f:facet>
+                        <h:outputText value="#{point.x}"/>
+                    </h:column>
+                    <h:column headerClass="variables">
+                        <f:facet name="header">y</f:facet>
+                        <h:outputText value="#{point.y}"/>
+                    </h:column>
+                    <h:column headerClass="variables">
+                        <f:facet name="header">r</f:facet>
+                        <h:outputText value="#{point.r}"/>
+                    </h:column>
+                    <h:column headerClass="variables">
+                        <f:facet name="header">Точка входит в область?</f:facet>
+                        <h:outputText value="#{point.stringResult}"/>
+                    </h:column>
+                </h:dataTable>
+            </td></tr></tfoot>
+        </table>
+
+        <h:outputScript library="scripts" name="jquery.js"/>
+        <h:outputScript library="scripts" name="form.js"/>
+        <h:outputScript library="scripts" name="canvas.js"/>
+    </ui:define>
+</ui:composition>
+</html>
