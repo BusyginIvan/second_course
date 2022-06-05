@@ -1,0 +1,4 @@
+Admissible error: 0.001
+Left border: 1
+Right border: 2
+Equation number: 2
