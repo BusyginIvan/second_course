@@ -1,0 +1,94 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+
+<project xmlns:ivy="antlib:org.apache.ivy.ant">
+	<property file="build.properties"/>
+	<property name="dir.lib" location="lib"/>
+
+	<target name="ivy">
+		<ivy:resolve/>
+		<ivy:cachepath pathid="path.main" conf="main"/>
+		<ivy:cachepath pathid="path.test" conf="test"/>
+		<ivy:cachepath pathid="path.diff" conf="diff"/>
+		<ivy:retrieve sync="true" type="jar" pattern="${dir.lib}/[conf]/[artifact].[ext]"/>
+	</target>
+
+	<target name="compile" depends="ivy">
+		<mkdir dir="${dir.classes.main}"/>
+		<javac srcdir="${dir.src.main}" destdir="${dir.classes.main}" includeAntRuntime="false">
+		  	<classpath> <path refid="path.main"/> </classpath>
+		</javac>
+	</target>
+
+	<target name="build" depends="compile">
+		<delete file="${war.archive}"/>
+		<delete dir="${dir.exploded}"/>
+
+		<copy todir="${dir.exploded}"> <fileset dir="${dir.web}"/> </copy>
+		<copy todir="${dir.exploded}/WEB-INF/classes"> <fileset dir="${dir.classes.main}"/> </copy>
+		<copy todir="${dir.exploded}/WEB-INF/lib"> <fileset dir="${dir.lib}/main"/> </copy>
+
+		<war destfile="${war.archive}" basedir="${dir.exploded}"/>
+	</target>
+
+	<target name="clean">
+		<delete dir="${dir.exploded}"/>
+		<delete dir="${dir.classes}"/>
+	</target>
+
+	<target name="doc" depends="build">
+		<delete dir="${dir.doc}"/>
+		<javadoc sourcepath="${dir.src.main}" destdir="${dir.doc}" Windowtitle="Documentation">
+			<fileset dir="${dir.src.main}"/>
+		</javadoc>
+		<copy todir="${dir.exploded}/${dir.doc}"> <fileset dir="${dir.doc}"/> </copy>
+
+		<signjar jar="${war.archive}"
+				 keystore="keystore" keypass="keypass"
+				 alias="alias" storepass="storepass"
+				 sigalg="MD5withRSA" digestalg="MD5"/>
+		<signjar jar="${war.archive}"
+				 keystore="keystore" keypass="keypass"
+				 alias="alias" storepass="storepass"
+				 sigalg="MD5withRSA" digestalg="SHA1"/>
+		<jar destfile="${war.archive}" basedir="${dir.exploded}" update="true"/>
+	</target>
+
+    <target name="test" depends="compile">
+        <mkdir dir="${dir.classes.test}"/>
+        <javac srcdir="${dir.src.test}" destdir="${dir.classes.test}" includeAntRuntime="false">
+            <classpath>
+                <path refid="path.test"/>
+                <pathelement location="${dir.classes.main}"/>
+            </classpath>
+        </javac>
+
+        <junit printsummary="on" haltonfailure="yes">
+            <classpath>
+                <path refid="path.test"/>
+                <pathelement location="${dir.classes.test}"/>
+				<pathelement location="${dir.classes.main}"/>
+            </classpath>
+            <formatter type="brief" usefile="false"/>
+            <batchtest>
+                <fileset dir="${dir.src.test}" includes="**/*Test.java"/>
+            </batchtest>
+        </junit>
+    </target>
+
+	<target name="diff" depends="ivy">
+		<mkdir dir="${dir.classes.diff}"/>
+		<javac srcdir="${dir.src.diff}" destdir="${dir.classes.diff}" includeAntRuntime="false">
+			<classpath> <path refid="path.diff"/> </classpath>
+		</javac>
+		<jar destfile="${jar.diff}" basedir="${dir.classes.diff}">
+			<manifest> <attribute name="Main-Class" value="DiffTask"/> </manifest>
+		</jar>
+		<taskdef name="diff" classname="DiffTask">
+			<classpath>
+				<path refid="path.diff"/>
+				<pathelement location="${jar.diff}"/>
+			</classpath>
+		</taskdef>
+		<diff commitClassesFileName="commit_classes.txt"/>
+	</target>
+</project>

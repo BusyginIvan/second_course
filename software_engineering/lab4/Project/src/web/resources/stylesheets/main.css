@@ -1,0 +1,69 @@
+#mainTable { margin: 82px auto 99px }
+
+h3 {
+    line-height: 1.5;
+    margin-top: 12px;
+    margin-bottom: 8px;
+}
+
+hr { width: 95% }
+
+#canvas {
+    background-color: white;
+    border: 2px solid /*#0D89EC*/ /*#2196F3*/ #F41C52;
+    border-radius: 20px;
+    box-shadow: inset 0 0 7px 1px gray;
+}
+
+.first {
+    text-align: right;
+    min-width: 100px;
+}
+
+.second {
+    text-align: left;
+    padding-left: 15px;
+    min-width: 127px;
+}
+
+.textX, .textY, .ui-spinner-input { height: 30px }
+.textX, .sliderX, .spinnerR { width: 60% } .textY { width: 100% }
+.sliderX { margin-top: 10px }
+
+.spinnerR > .ui-spinner-button { z-index: auto }
+.ui-button, .ui-slider-range {
+    background: #F41C52 !important;
+    border-color: #F41C52 !important;
+}
+.ui-slider-handle { border: 2px solid #F41C52 !important }
+.ui-slider-handle.ui-state-hover { background: #F41C52 !important }
+.ui-state-hover, .ui-state-focus { border-color: #F41C52 !important }
+.ui-state-focus { box-shadow: 0 0 0 0.2em #FBB0C4 !important }
+:root { --primary-color: #F41C52 !important }
+
+.message {
+    width: 70%;
+    margin: 0 auto 10px;
+    color: DarkRed;
+}
+
+#pointsTable {
+    border: 1px solid #000720;
+    border-collapse: collapse;
+    margin: auto;
+    width: 90%;
+}
+
+#pointsTable th {
+    background-color: #000720;
+    color: white;
+    padding: 20px;
+    width: 20%;
+}
+
+#pointsTable th:last-child { width: 40% }
+
+#pointsTable > tbody > tr > td { padding-top: 15px }
+#pointsTable > tbody > tr:last-child > td { padding-bottom: 15px }
+
+#pointsTable { margin-bottom: 10px }

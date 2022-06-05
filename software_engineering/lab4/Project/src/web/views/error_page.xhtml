@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view>
+<ui:composition template="template.xhtml">
+    <ui:define name="head">
+        <title>Страница не найдена</title>
+        <h:outputStylesheet library="stylesheets" name="simple_pages.css"/>
+    </ui:define>
+    <ui:define name="content">
+        <div id="base"><div class="shaded list">
+            <h3>
+                Страницы, которую вы запрашиваете, не существует. Проверьте url-адрес.<br/>
+                <h:link outcome="goIndex">Перейти на стартовую страницу.</h:link>
+            </h3>
+        </div></div>
+    </ui:define>
+</ui:composition>
+</f:view>
+</html>
