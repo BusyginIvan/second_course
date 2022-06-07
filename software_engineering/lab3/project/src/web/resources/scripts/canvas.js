@@ -103,10 +103,10 @@ function drawRect(x, y, w, h) {
 function drawPoint(x, y, r, result) {
     if (Number(r) !== Number(currentR)) return;
 
-    if (result === "да") {
+    if (result === 'yes') {
         ctx.strokeStyle = 'DarkGreen';
         ctx.fillStyle = 'Green';
-    } else if (result === "нет") {
+    } else if (result === 'no') {
         ctx.strokeStyle = 'FireBrick';
         ctx.fillStyle = 'Red';
     } else return;
@@ -119,7 +119,7 @@ function drawPoint(x, y, r, result) {
 }
 
 function drawPoints() {
-    let pointsTable = document.getElementById("pointsTable");
+    let pointsTable = document.getElementById('pointsTable');
     if (pointsTable) {
         let rows = pointsTable.tBodies[0].rows;
         for (let i = 0; i < rows.length; i++) {

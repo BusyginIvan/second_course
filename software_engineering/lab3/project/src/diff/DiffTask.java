@@ -15,7 +15,9 @@ public class DiffTask extends Task {
         git = Git.open(new File("."));
     }
 
-    public void setCommitClassesFileName(String commitClassesFileName) { this.commitClassesFileName = commitClassesFileName; }
+    public void setCommitClassesFileName(String commitClassesFileName) {
+        this.commitClassesFileName = commitClassesFileName;
+    }
 
     @Override
     public void execute() throws BuildException {
@@ -27,8 +29,11 @@ public class DiffTask extends Task {
                 if (git.status().addPath(line).call().hasUncommittedChanges())
                     thereAreUncommittedChanges = true;
             }
-            if (thereAreUncommittedChanges)
+            if (thereAreUncommittedChanges) {
                 git.commit().setMessage("auto commit").call();
+            } else {
+                System.out.println("There are no uncommitted changes in the classes specified in the parameters file.");
+            }
         } catch (IOException|GitAPIException e) {
             e.printStackTrace();
         }

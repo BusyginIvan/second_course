@@ -1,8 +1,20 @@
 <?xml version = "1.0" encoding = "UTF-8"?>
 
-<project xmlns:ivy="antlib:org.apache.ivy.ant">
+<project xmlns:ivy="antlib:org.apache.ivy.ant" default="help">
 	<property file="build.properties"/>
 	<property name="dir.lib" location="lib"/>
+
+	<target name="help">
+		<echo>Targets list:</echo>
+		<echo> help - shows list of targets;</echo>
+		<echo> ivy - initializes dependencies;</echo>
+		<echo> compile - creates .class files;</echo>
+		<echo> build - creates war file;</echo>
+		<echo> clean - deletes intermediate assembly files;</echo>
+		<echo> doc - creates documentation and signs war file;</echo>
+		<echo> test - runs JUnit tests;</echo>
+		<echo> diff - auto commit.</echo>
+	</target>
 
 	<target name="ivy">
 		<ivy:resolve/>
